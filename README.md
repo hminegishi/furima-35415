@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column             | Type        | Options     |
-| ------------------ | ----------- | ----------- |
-| nickname           | string      | null: false |
-| email              | string      | unique:true |
-| encrypted_password | string      | null: false |
-| family_name        | string      | null: false |
-| first_name         | string      | null: false |
-| family_name_kana   | string      | null: false |
-| first_name_kana    | string      | null: false |
-| date               | Active_Hash | null: false |
+| Column             | Type        | Options                  |
+| ------------------ | ----------- | ------------------------ |
+| nickname           | string      | null: false              |
+| email              | string      | unique:true, null: false |
+| encrypted_password | string      | null: false              |
+| family_name        | string      | null: false              |
+| first_name         | string      | null: false              |
+| family_name_kana   | string      | null: false              |
+| first_name_kana    | string      | null: false              |
+| birthday           | date        | null: false              |
 
 ### Association
 
@@ -28,7 +28,7 @@
 | status_id            | integer     | null: false                    |
 | charge_id            | integer     | null: false                    |
 | seller_prefecture_id | integer     | null: false                    |
-| days_id              | integer     | null: false                    |
+| day_id               | integer     | null: false                    |
 | price                | integer     | null: false                    |
 | user                 | references  | null: false, foreign_key: true |
 
@@ -41,7 +41,8 @@
 
 | Column    | Type       | Options                        |
 | --------- | ---------- | ------------------------------ |
-| buyer     | references | null: false, foreign_key: true |
+| user      | references | null: false, foreign_key: true |
+| item      | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -53,14 +54,13 @@
 
 | Column           | Type        | Options                        |
 | ---------------- | ----------- | ------------------------------ |
-| postal_code_id   | integer     | null: false                    |
+| postal_code      | string      | null: false                    |
 | prefecture_id    | integer     | null: false                    |
 | city             | string      | null: false                    |
 | address          | string      | null: false                    |
 | building_name    | string      |                                |
 | phone            | string      | null: false                    |
-| user             | references  | null: false, foreign_key: true |
-| item             | references  | null: false, foreign_key: true |
+| buyer            | references  | null: false, foreign_key: true |
 
 ### Association
 
