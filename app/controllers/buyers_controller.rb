@@ -4,6 +4,9 @@ class BuyersController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
     @buyer_shipping = BuyerShipping.new
+    if @item.buyer.present?
+        redirect_to root_path
+    end
   end
 
   def create
@@ -32,4 +35,5 @@ class BuyersController < ApplicationController
       currency: 'jpy'
     )
   end
+
 end
