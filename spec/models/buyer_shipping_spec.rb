@@ -5,7 +5,7 @@ RSpec.describe BuyerShipping, type: :model do
       @user = FactoryBot.create(:user)
       @buyer_shipping = FactoryBot.build(:buyer_shipping, user_id: @user.id)
     end
-  
+
     context '購入できる場合' do
       it 'ログイン状態の出品者以外のユーザーのみ、必要な情報を適切に入力すると、商品の購入ができること' do
         expect(@buyer_shipping).to be_valid
@@ -13,7 +13,7 @@ RSpec.describe BuyerShipping, type: :model do
     end
 
     context '購入できない場合' do
-      it "tokenが空では登録できないこと" do
+      it 'tokenが空では登録できないこと' do
         @buyer_shipping.token = nil
         @buyer_shipping.valid?
         expect(@buyer_shipping.errors.full_messages).to include("Token can't be blank")
@@ -26,7 +26,7 @@ RSpec.describe BuyerShipping, type: :model do
       it 'postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @buyer_shipping.postal_code = '1234567'
         @buyer_shipping.valid?
-        expect(@buyer_shipping.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+        expect(@buyer_shipping.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
       it 'prefecture_idを選択していないと保存できないこと' do
         @buyer_shipping.prefecture_id = 0
@@ -47,21 +47,6 @@ RSpec.describe BuyerShipping, type: :model do
         @buyer_shipping.building_name = ''
         expect(@buyer_shipping).to be_valid
       end
-      #it 'priceが空だと保存できないこと' do
-       # @buyer_shipping.price = nil
-       # @buyer_shipping.valid?
-       # expect(@buyer_shipping.errors.full_messages).to include("Price can't be blank")
-      #end
-      #it 'priceが全角数字だと保存できないこと' do
-       # @buyer_shipping.price = ２０００
-       # @buyer_shipping.valid?
-       # expect(@buyer_shipping.errors.full_messages).to include("Price can't be blank")
-      #end
-      #it 'priceが1円未満では保存できないこと' do
-       # @buyer_shipping.price = 0
-       # @buyer_shipping.valid?
-       # expect(@buyer_shipping.errors.full_messages).to include("Price can't be blank")
-      #end
       it 'userが紐付いていないと保存できないこと' do
         @buyer_shipping.user_id = nil
         @buyer_shipping.valid?
@@ -75,9 +60,9 @@ RSpec.describe BuyerShipping, type: :model do
       it '電話番号は11桁以内の数値のみ保存可能なこと（09012345678となる）' do
         @buyer_shipping.phone = '090123456789'
         @buyer_shipping.valid?
-        expect(@buyer_shipping.errors.full_messages).to include("Phone numbers with in 11 digits")
+        expect(@buyer_shipping.errors.full_messages).to include('Phone numbers with in 11 digits')
       end
     end
   end
 end
-#bundle exec rspec spec/models/buyer_shipping_spec.rb
+# bundle exec rspec spec/models/buyer_shipping_spec.rb

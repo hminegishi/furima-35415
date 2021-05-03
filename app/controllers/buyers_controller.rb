@@ -4,9 +4,7 @@ class BuyersController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
     @buyer_shipping = BuyerShipping.new
-    if @item.buyer.present?
-        redirect_to root_path
-    end
+    redirect_to root_path if @item.buyer.present?
   end
 
   def create
@@ -24,16 +22,17 @@ class BuyersController < ApplicationController
   private
 
   def buyer_params
-    params.require(:buyer_shipping).permit(:postal_code, :prefecture_id, :city, :address, :building_name, :phone).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:buyer_shipping).permit(:postal_code, :prefecture_id, :city, :address, :building_name, :phone).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"] #"sk_test_c9dd24e7da670fc488f85ea4"
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY'] # "sk_test_c9dd24e7da670fc488f85ea4"
     Payjp::Charge.create(
       amount: @item.price,
       card: buyer_params[:token],
       currency: 'jpy'
     )
   end
-
 end
