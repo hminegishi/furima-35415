@@ -3,11 +3,16 @@ RSpec.describe BuyerShipping, type: :model do
   describe '購入情報の保存' do
     before do
       @user = FactoryBot.create(:user)
-      @buyer_shipping = FactoryBot.build(:buyer_shipping, user_id: @user.id)
+      @item = FactoryBot.create(:user)
+      @buyer_shipping = FactoryBot.build(:buyer_shipping, user_id: @user.id, item_id: @item.id)
     end
 
     context '購入できる場合' do
       it 'ログイン状態の出品者以外のユーザーのみ、必要な情報を適切に入力すると、商品の購入ができること' do
+        expect(@buyer_shipping).to be_valid
+      end
+      it 'building_nameは空でも保存できること' do
+        @buyer_shipping.building_name = ''
         expect(@buyer_shipping).to be_valid
       end
     end
@@ -42,10 +47,6 @@ RSpec.describe BuyerShipping, type: :model do
         @buyer_shipping.address = ''
         @buyer_shipping.valid?
         expect(@buyer_shipping.errors.full_messages).to include("Address can't be blank")
-      end
-      it 'building_nameは空でも保存できること' do
-        @buyer_shipping.building_name = ''
-        expect(@buyer_shipping).to be_valid
       end
       it 'userが紐付いていないと保存できないこと' do
         @buyer_shipping.user_id = nil
