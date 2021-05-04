@@ -18,8 +18,8 @@ class Item < ApplicationRecord
     validates :sellerprefecture_id
     validates :day_id
   end
-  
-  validates_inclusion_of :price, in: 300..9999999, message: 'ranges from 300 to 9999999'
+
+  validates_inclusion_of :price, in: 300..9_999_999, message: 'ranges from 300 to 9999999'
   validates :price, format: { with: /\d[0-9]/, message: 'is limited to half-width numbers' }
   belongs_to :user
   belongs_to :category
@@ -27,7 +27,7 @@ class Item < ApplicationRecord
   belongs_to :charge
   belongs_to :sellerprefecture
   belongs_to :day
+  has_one    :buyer
 
   has_one_attached :image
-
 end
