@@ -7,7 +7,7 @@ class BuyerShipping
     validates :prefecture_id
     validates :city
     validates :address
-    validates :phone, format: { with: /\A[0-9]{11}\z/, message: 'numbers with in 11 digits' }
+    validates :phone, format: { with: /\A[0-9]{10,11}\z/, message: 'numbers with in 11 digits' }
     validates :user_id
     validates :item_id
     validates :token
