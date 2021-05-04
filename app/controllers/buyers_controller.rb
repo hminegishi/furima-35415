@@ -1,10 +1,10 @@
 class BuyersController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!
 
   def index
     @item = Item.find(params[:item_id])
     @buyer_shipping = BuyerShipping.new
-    redirect_to root_path if @item.buyer.present?
+    redirect_to root_path if @item.buyer.present? || @item.user_id == current_user.id
   end
 
   def create
